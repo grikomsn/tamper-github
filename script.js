@@ -10,8 +10,8 @@
 // @run-at       document-end
 // @grant        none
 // @icon         https://github.githubassets.com/pinned-octocat.svg
-// @updateURL    https://raw.githubusercontent.com/grikomsn/tamper-github/main/script.js
-// @downloadURL  https://raw.githubusercontent.com/grikomsn/tamper-github/main/script.js
+// @updateURL    https://nbr.st/tamper-github.js
+// @downloadURL  https://nbr.st/tamper-github.js
 // @supportURL   https://github.com/grikomsn/tamper-github/issues
 // ==/UserScript==
 
