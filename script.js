@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Tamper GitHub
-// @version      0.0.2
+// @version      0.0.3
 // @description  A userscript to disable GitHub turbolinks and hide unnecessary elements
 // @license      MIT
 // @author       Griko Nibras
@@ -22,7 +22,15 @@
     css = String.raw;
   el.innerHTML = css`
     .js-repos-container,
-    #dashboard-user-teams {
+    #dashboard-user-teams,
+    li:has([data-src="/_side-panel-items/global/repositories"]),
+    li:has([data-src="/_side-panel-items/global/repositories"])
+      ~ .ActionList-sectionDivider,
+    li:has([data-src="/_side-panel-items/global/repositories"])
+      + .ActionList-sectionDivider,
+    li:has([href^="/orgs/"]),
+    li:has([href^="/orgs/"]) ~ .ActionList-sectionDivider,
+    li:has([href^="/orgs/"]) + .ActionList-sectionDivider {
       display: none;
     }
     tool-tip {
