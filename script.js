@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Tamper GitHub
-// @version      0.1.0
+// @version      0.1.1
 // @description  A userscript to disable GitHub turbolinks and toggle elements to blur out
 // @license      MIT
 // @author       Griko Nibras
@@ -42,42 +42,46 @@ var css = String.raw;
   if (GM_getValue("lastState", true)) {
     toggleRedact();
   }
-})();
 
-function toggleRedact() {
-  var id = "tamper-github-redact-style";
-  var keywords = GM_getValue("keywords", []);
-  var current = document.getElementById(id);
-  if (current) {
-    current.remove();
-    GM_setValue("lastState", false);
-    return;
-  }
-  var el = document.createElement("style");
-  el.id = id;
-  el.innerHTML += css`
-    #js-contribution-activity {
-      filter: blur(4px);
+  function toggleRedact() {
+    var id = "tamper-github-redact-style";
+    var keywords = GM_getValue("keywords", []);
+    if (keywords.length < 1) {
+      console.error("toggleRedact error: no keywords found");
     }
-  `;
-  keywords.forEach((keyword) => {
+    var current = document.getElementById(id);
+    if (current) {
+      current.remove();
+      GM_setValue("lastState", false);
+      return;
+    }
+    var el = document.createElement("style");
+    el.id = id;
     el.innerHTML += css`
-      div:has([href*="${keyword}"]) ~ .pinned-item-desc,
-      .orghead:has([href*="${keyword}"]) h1 + *,
-      .orghead:has([href*="${keyword}"]) h1,
-      .orghead:has([href*="${keyword}"]) img,
-      .orghead:has([href*="${keyword}"]) ul,
-      .Popover-message:has([href*="${keyword}"]) [itemprop="description"],
-      [href*="${keyword}"] + tool-tip,
-      [href*="${keyword}"],
-      [href*="${keyword}"]:not([itemprop="programmingLanguage"]),
-      [href="/orgs/${keyword}/people"] + .flex-wrap,
-      [itemprop="name codeRepository"][href*="${keyword}"]
-        ~ [itemprop="description"] {
+      #js-contribution-activity {
         filter: blur(4px);
       }
     `;
-  });
-  document.head.appendChild(el);
-  GM_setValue("lastState", true);
-}
+    keywords.forEach((keyword) => {
+      el.innerHTML += css`
+        .orghead:has([href*="${keyword}"]) h1 + *,
+        .orghead:has([href*="${keyword}"]) h1,
+        .orghead:has([href*="${keyword}"]) img,
+        .orghead:has([href*="${keyword}"]) ul,
+        .Popover-message div:has([href*="${keyword}"]) ~ .color-fg-muted,
+        .Popover-message:has([href*="${keyword}"]) [itemprop="description"],
+        [href*="${keyword}"] + tool-tip,
+        [href*="${keyword}"],
+        [href*="${keyword}"]:not([itemprop="programmingLanguage"]),
+        [href="/orgs/${keyword}/people"] + .flex-wrap,
+        [itemprop="name codeRepository"][href*="${keyword}"]
+          ~ [itemprop="description"],
+        div:has([href*="${keyword}"]) ~ .pinned-item-desc {
+          filter: blur(4px);
+        }
+      `;
+    });
+    document.head.appendChild(el);
+    GM_setValue("lastState", true);
+  }
+})();
