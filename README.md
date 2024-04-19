@@ -11,6 +11,7 @@ A userscript to disable GitHub turbolinks and toggle elements to blur out
    https://nbr.st/tamper-github.js
    https://raw.githubusercontent.com/grikomsn/tamper-github/main/script.js
    ```
+4. Configure keywords to blur out by adding a `keywords` storage value (e.g. `["secret-org", "github.com/some-org/secret-repo", ...]`)
 
 ## Credits
 
