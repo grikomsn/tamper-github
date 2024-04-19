@@ -1,6 +1,6 @@
 # tamper-github
 
-Userscript to disable GitHub turbolinks and hide unnecessary elements
+A userscript to disable GitHub turbolinks and toggle elements to blur out
 
 ## Install
 
