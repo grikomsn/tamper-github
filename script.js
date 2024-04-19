@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Tamper GitHub
-// @version      0.1.2
+// @version      0.1.3
 // @description  A userscript to disable GitHub turbolinks and toggle elements to blur out
 // @license      MIT
 // @author       Griko Nibras
@@ -22,7 +22,7 @@ var css = String.raw;
 (() => {
   "use strict";
 
-  document.body.dataset.turbo = "false";
+  // document.body.dataset.turbo = "false";
   var el = document.createElement("style");
   el.innerHTML += css`
     tool-tip {
@@ -80,7 +80,10 @@ var css = String.raw;
         [itemprop="name codeRepository"][href*="${keyword}"]
           ~ [itemprop="description"],
         div:has([href*="${keyword}"]) ~ .pinned-item-desc {
-          filter: blur(4px) grayscale(100%);
+          filter: blur(8px) grayscale(100%);
+        }
+        .orghead:has([href*="${keyword}"]) img {
+          filter: blur(8px) invert(50%);
         }
       `;
     });
